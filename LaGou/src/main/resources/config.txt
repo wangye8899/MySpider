@@ -1,0 +1,5 @@
+
+devMode:true
+dbConnect:jdbc:mysql://127.0.0.1:3306/oschina?useUnicode=true&characterEncoding=UTF-8
+dbUser:root
+dbPwd:

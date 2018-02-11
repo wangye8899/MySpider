@@ -1,0 +1,8 @@
+mysql> truncate osarticle;
+Query OK, 0 rows affected
+
+mysql> alter table osarticle auto_increment=1;
+Query OK, 0 rows affected
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> 
