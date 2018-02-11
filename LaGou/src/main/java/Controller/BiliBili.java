@@ -13,7 +13,7 @@ import us.codecraft.webmagic.selector.JsonPathSelector;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DouBanController extends Controller implements PageProcessor {
+public class BiliBili extends Controller implements PageProcessor {
 
     List<String> pagelist = new ArrayList<String>();
     private Site site = Site.me().setRetryTimes(3).setSleepTime(1000);
