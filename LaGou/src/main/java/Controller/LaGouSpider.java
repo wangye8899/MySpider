@@ -1,5 +1,7 @@
 package Controller;
 
+import LaGou.LaGouPipe;
+import com.jfinal.core.Controller;
 import us.codecraft.webmagic.*;
 import us.codecraft.webmagic.downloader.HttpClientDownloader;
 import us.codecraft.webmagic.model.HttpRequestBody;
@@ -12,9 +14,13 @@ import us.codecraft.webmagic.utils.HttpConstant;
 import java.util.*;
 
 
-public class LaGouSpider  implements PageProcessor {
+public class LaGouSpider extends Controller implements PageProcessor  {
     int flag = 0;
     int mark = 0;
+    int sun = 0;
+    int sub = 0;
+    int ty = 0;
+    int tr = 0;
     private Site site = Site.me()
             .setRetryTimes(3)
             .setSleepTime(1000)
@@ -37,21 +43,34 @@ public class LaGouSpider  implements PageProcessor {
     {
 
         this.processBeiJing(page);
-//        this.processTianJin(page);
-        page.putField("position",new JsonPathSelector("$.content.positionResult.result[*].positionName").selectList(page.getRawText()));
+        this.processTianJin(page);
+        this.processChengDu(page);
+        this.processDaLian(page);
+        this.processShenYang(page);
+        this.processXiAn(page);
+        page.putField("positionname",new JsonPathSelector("$.content.positionResult.result[*].positionName").selectList(page.getRawText()));
+        page.putField("workYear",new JsonPathSelector("$.content.positionResult.result[*].workYear").selectList(page.getRawText()));
+        page.putField("salary",new JsonPathSelector("$.content.positionResult.result[*].salary").selectList(page.getRawText()));
+        page.putField("address",new JsonPathSelector("$.content.positionResult.result[*].city").selectList(page.getRawText()));
+        page.putField("district",new JsonPathSelector("$.content.positionResult.result[*].district").selectList(page.getRawText()));
+        page.putField("createTime",new JsonPathSelector("$.content.positionResult.result[*].createTime").selectList(page.getRawText()));
+        page.putField("companyName",new JsonPathSelector("$.content.positionResult.result[*].companyFullName").selectList(page.getRawText()));
+        page.putField("discription",new JsonPathSelector("$.content.positionResult.result[*].secondType").selectList(page.getRawText()));
 
     }
-
-
-
-
-    public static void main(String []argv)
+    public void runLagouSpider()
     {
-          Spider.create(new LaGouSpider())
+        Spider.create(new LaGouSpider())
+                .addPipeline(new LaGouPipe())
                 .addUrl("https://www.lagou.com/jobs/positionAjax.json?px=default&city=北京&needAddtionalResult=false&isSchoolJob=0")
                 .thread(2)
                 .run();
+        renderText("爬取完成");
     }
+
+
+
+
 
     //爬取北京的java职位信息
     public void processBeiJing(Page page)
@@ -119,6 +138,137 @@ public class LaGouSpider  implements PageProcessor {
             mark++;
         }
     }
+    public void processChengDu(Page page)
+    {
+        if(sun==0)
+        {
+
+            Request [] requests = new Request[1];
+            Map<String,Object> map = new HashMap<String, Object>();
+            for(int i=0;i<requests.length;i++)
+            {
+                requests[i] = new Request("https://www.lagou.com/jobs/positionAjax.json?px=default&city=成都&needAddtionalResult=false&isSchoolJob=0");
+                requests[i].setMethod(HttpConstant.Method.POST);
+                if(i==0)
+                {
+                    map.put("first","true");
+                    map.put("pn",i+1);
+                    map.put("kd","java");
+                    requests[i].setRequestBody(HttpRequestBody.form(map,"utf-8"));
+                    page.addTargetRequest(requests[i]);
+                }
+                else
+                {
+                    map.put("first","false");
+                    map.put("pn",i+1);
+                    map.put("kd","java");
+                    requests[i].setRequestBody(HttpRequestBody.form(map,"utf-8"));
+                    page.addTargetRequest(requests[i]);
+                }
+            }
+
+            sun++;
+        }
+
+    }
+    public void processXiAn(Page page)
+    { if(sub==0)
+    {
+
+        Request [] requests = new Request[1];
+        Map<String,Object> map = new HashMap<String, Object>();
+        for(int i=0;i<requests.length;i++)
+        {
+            requests[i] = new Request("https://www.lagou.com/jobs/positionAjax.json?px=default&city=西安&needAddtionalResult=false&isSchoolJob=0");
+            requests[i].setMethod(HttpConstant.Method.POST);
+            if(i==0)
+            {
+                map.put("first","true");
+                map.put("pn",i+1);
+                map.put("kd","java");
+                requests[i].setRequestBody(HttpRequestBody.form(map,"utf-8"));
+                page.addTargetRequest(requests[i]);
+            }
+            else
+            {
+                map.put("first","false");
+                map.put("pn",i+1);
+                map.put("kd","java");
+                requests[i].setRequestBody(HttpRequestBody.form(map,"utf-8"));
+                page.addTargetRequest(requests[i]);
+            }
+        }
+
+        sub++;
+    }
+
+    }
+    public void processDaLian(Page page)
+    { if(tr==0)
+    {
+
+        Request [] requests = new Request[1];
+        Map<String,Object> map = new HashMap<String, Object>();
+        for(int i=0;i<requests.length;i++)
+        {
+            requests[i] = new Request("https://www.lagou.com/jobs/positionAjax.json?px=default&city=大连&needAddtionalResult=false&isSchoolJob=0");
+            requests[i].setMethod(HttpConstant.Method.POST);
+            if(i==0)
+            {
+                map.put("first","true");
+                map.put("pn",i+1);
+                map.put("kd","java");
+                requests[i].setRequestBody(HttpRequestBody.form(map,"utf-8"));
+                page.addTargetRequest(requests[i]);
+            }
+            else
+            {
+                map.put("first","false");
+                map.put("pn",i+1);
+                map.put("kd","java");
+                requests[i].setRequestBody(HttpRequestBody.form(map,"utf-8"));
+                page.addTargetRequest(requests[i]);
+            }
+        }
+
+        tr++;
+    }
+
+    }
+    public void processShenYang(Page page)
+    { if(ty==0)
+    {
+
+        Request [] requests = new Request[1];
+        Map<String,Object> map = new HashMap<String, Object>();
+        for(int i=0;i<requests.length;i++)
+        {
+            requests[i] = new Request("https://www.lagou.com/jobs/positionAjax.json?px=default&city=沈阳&needAddtionalResult=false&isSchoolJob=0");
+            requests[i].setMethod(HttpConstant.Method.POST);
+            if(i==0)
+            {
+                map.put("first","true");
+                map.put("pn",i+1);
+                map.put("kd","java");
+                requests[i].setRequestBody(HttpRequestBody.form(map,"utf-8"));
+                page.addTargetRequest(requests[i]);
+            }
+            else
+            {
+                map.put("first","false");
+                map.put("pn",i+1);
+                map.put("kd","java");
+                requests[i].setRequestBody(HttpRequestBody.form(map,"utf-8"));
+                page.addTargetRequest(requests[i]);
+            }
+        }
+
+        ty++;
+    }
+
+    }
+
+
     public Site getSite()
     {
         return site;

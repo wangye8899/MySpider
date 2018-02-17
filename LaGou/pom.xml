@@ -44,6 +44,18 @@
             <artifactId>druid</artifactId>
             <version>1.0.29</version>
         </dependency>
+        <dependency>
+            <groupId>com.kennycason</groupId>
+            <artifactId>kumo-core</artifactId>
+            <version>1.13</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.kennycason</groupId>
+            <artifactId>kumo-tokenizers</artifactId>
+            <version>1.12</version>
+        </dependency>
 
     </dependencies>
 

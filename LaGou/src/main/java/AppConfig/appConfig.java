@@ -1,7 +1,9 @@
 package AppConfig;
 
 import Controller.IndexController;
+import Controller.LaGouSpider;
 import Controller.OsArticleController;
+import Model.lagou;
 import Model.osarticle;
 import Model.user;
 import Oschina.OsArticle;
@@ -23,6 +25,7 @@ public class appConfig extends JFinalConfig {
 
         routes.add("/", IndexController.class);
         routes.add("/OsArticle", OsArticleController.class);
+        routes.add("/lagou", LaGouSpider.class);
     }
 
     public void configEngine(Engine engine) {
@@ -39,6 +42,7 @@ public class appConfig extends JFinalConfig {
         arp.addMapping("osarticle", osarticle.class);
         arp.addMapping("osproject", osarticle.class);
         arp.addMapping("user", user .class);
+        arp.addMapping("lagou", lagou.class);
     }
 
     public void configInterceptor(Interceptors interceptors) {

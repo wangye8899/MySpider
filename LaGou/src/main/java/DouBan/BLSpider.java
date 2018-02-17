@@ -20,7 +20,8 @@ public class BLSpider implements Pipeline {
 
     }
 
-    public void writeTxt(String savepath,List<String> name,List<String> link) {
+    public void writeTxt(String savepath,List<String> name,List<String> link)
+    {
         FileWriter fileWriter = null;
         try {
             fileWriter = new FileWriter(savepath,true);

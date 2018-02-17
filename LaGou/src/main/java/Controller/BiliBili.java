@@ -40,7 +40,7 @@ public class BiliBili extends Controller implements PageProcessor {
 
     public static void main(String []argv)
     {
-        Spider.create(new DouBanController())
+        Spider.create(new BiliBili())
                 .addUrl("https://search.bilibili.com/api/search?search_type=all&keyword=会声会影&from_source=banner_search&page=1")
                 .addPipeline(new BLSpider())
                 .thread(2)
