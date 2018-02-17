@@ -25,6 +25,6 @@ LaGou/src/main/java/Controller/OsArticleController.java ----爬取开源中国10
 
 <br/>
 爬虫（拉勾网）完善。主要将主要城市的java工作岗位详细信息，存储到数据库，610条。以下为截图：<br/>
-![lagou](http://ozxd2dfv6.bkt.clouddn.com/data.png)
+![lagou](https://github.com/wangye8899/MySpider/raw/master/images/data.png)
 
 
